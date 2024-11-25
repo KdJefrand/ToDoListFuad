@@ -4,7 +4,6 @@ const searchTodo = document.getElementById("searchTodo");
 const filterCheckboxes = document.querySelectorAll(".filter-checkbox");
 const sortRadios = document.querySelectorAll(".sort-radio");
 
-// Utility functions
 function getTodos() {
   return JSON.parse(localStorage.getItem("todos")) || [];
 }
@@ -32,7 +31,6 @@ function renderTodos(filterFn = () => true) {
 
   let todos = getTodos();
 
-  // Apply Filters
   const activeFilters = Array.from(filterCheckboxes)
     .filter(checkbox => checkbox.checked)
     .map(checkbox => checkbox.dataset.filter);
@@ -45,35 +43,29 @@ function renderTodos(filterFn = () => true) {
     });
   }
 
-  // Apply Search Filter
   todos = todos.filter(filterFn);
 
   const activeSort = Array.from(sortRadios).find(radio => radio.checked)?.value;
   if (activeSort) {
     todos.sort((a, b) => {
       if (activeSort === "time") {
-        // Sort by date and time
         return new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`);
       }
   
       if (activeSort === "priority") {
-        // Sort by priority: Urgent → Normal → Not Urgent
         const priorityOrder = { "urgent": 1, "normal": 2, "not urgent": 3 };
         return priorityOrder[a.priority] - priorityOrder[b.priority];
       }
   
       if (activeSort === "status") {
-        // Sort by status: Overdue → Pending → Completed
         const statusOrder = { "Overdue": 1, "Pending": 2, "Completed": 3 };
         return statusOrder[a.status] - statusOrder[b.status];
       }
   
-      // Default: Sort alphabetically by description
       return a.description.localeCompare(b.description);
     });
   }  
 
-  // Render
   todoList.innerHTML = todos.map((todo, index) => `
     <div class="col-md-4">
         <div class="card">
@@ -94,7 +86,6 @@ function renderTodos(filterFn = () => true) {
     `).join("");
 }
 
-// Event Listeners
 searchTodo.addEventListener("input", () => renderTodos());
 filterCheckboxes.forEach(checkbox => checkbox.addEventListener("change", () => renderTodos()));
 sortRadios.forEach(radio => radio.addEventListener("change", () => renderTodos()));
@@ -118,15 +109,13 @@ todoForm.addEventListener("submit", (e) => {
   renderTodos();
 });
 
-// Fungsi untuk clear input
 function clearModalInputs() {
   document.getElementById("todoDescription").value = "";
   document.getElementById("todoDate").value = "";
   document.getElementById("todoTime").value = "";
-  document.getElementById("todoPriority").value = "Normal"; // Reset ke default value
+  document.getElementById("todoPriority").value = "Normal"; 
 }
 
-// Toggle Status
 function toggleStatus(index) {
   const todos = getTodos();
   todos[index].status = todos[index].status === "Completed" ? "Pending" : "Completed";
@@ -134,7 +123,6 @@ function toggleStatus(index) {
   renderTodos();
 }
 
-// Delete Todo
 function deleteTodo(index) {
   const todos = getTodos();
   todos.splice(index, 1);
@@ -147,5 +135,4 @@ searchTodo.addEventListener("input", (e) => {
   renderTodos(todo => todo.description.toLowerCase().includes(query));
 });
 
-// Initial Render
 renderTodos();
