@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .filter-box {
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Todo List</h1>
+
+    <!-- Search and Filter Section -->
+    <div class="row">
+      <div class="col-md-8">
+        <div class="d-flex">
+            <button class="btn btn-primary mb-4 me-3" data-bs-toggle="modal" data-bs-target="#addTodoModal">Add</button>
+            <input type="text" id="searchTodo" class="form-control mb-4" placeholder="Search Todo">
+        </div>
+        <div id="todoList" class="row g-3"></div>
+      </div>
+      <div class="col-md-4">
+        <div class="filter-box">
+          <h5>Filters</h5>
+          <div class="form-check">
+            <input class="form-check-input filter-checkbox" type="checkbox" id="filterCompleted" data-filter="Completed">
+            <label class="form-check-label" for="filterCompleted">Sudah dikerjakan</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input filter-checkbox" type="checkbox" id="filterPending" data-filter="Pending">
+            <label class="form-check-label" for="filterPending">Belum dikerjakan</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input filter-checkbox" type="checkbox" id="filterOverdue" data-filter="Overdue">
+            <label class="form-check-label" for="filterOverdue">Melewati waktu (Overdue)</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input filter-checkbox" type="checkbox" id="filterUrgent" data-filter="urgent">
+            <label class="form-check-label" for="filterUrgent">Prioritas: Urgent</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input filter-checkbox" type="checkbox" id="filterNormal" data-filter="normal">
+            <label class="form-check-label" for="filterNormal">Prioritas: Normal</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input filter-checkbox" type="checkbox" id="filterNotUrgent" data-filter="not urgent">
+            <label class="form-check-label" for="filterNotUrgent">Prioritas: Not Urgent</label>
+          </div>
+          
+          <h5 class="mt-4">Sort By</h5>
+          <div class="form-check">
+            <input class="form-check-input sort-radio" type="radio" name="sortOption" id="sortTime" value="time">
+            <label class="form-check-label" for="sortTime">Waktu</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input sort-radio" type="radio" name="sortOption" id="sortAbjad" value="description">
+            <label class="form-check-label" for="sortAbjad">Abjad (Deskripsi)</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input sort-radio" type="radio" name="sortOption" id="sortPriority" value="priority">
+            <label class="form-check-label" for="sortPriority">Prioritas</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input sort-radio" type="radio" name="sortOption" id="sortStatus" value="status">
+            <label class="form-check-label" for="sortStatus">Status</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Todo Modal -->
+  <div class="modal fade" id="addTodoModal" tabindex="-1" aria-labelledby="addTodoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addTodoModalLabel">Add Todo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="todoForm">
+            <div class="mb-3">
+              <label for="todoDescription" class="form-label">Description</label>
+              <input type="text" id="todoDescription" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="todoDate" class="form-label">Date</label>
+              <input type="date" id="todoDate" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="todoTime" class="form-label">Time</label>
+              <input type="time" id="todoTime" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="todoPriority" class="form-label">Priority</label>
+              <select id="todoPriority" class="form-select">
+                <option value="urgent">Urgent</option>
+                <option value="normal">Normal</option>
+                <option value="not urgent">Not Urgent</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Add Todo</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
